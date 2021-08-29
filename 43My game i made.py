@@ -28,7 +28,7 @@ def draw_window(red, yellow):
     WIN.fill((WHITE))
     pygame.draw.rect(WIN, BLACK, BORDER)
     WIN.blit(YELLOW_SPACESHIP, (yellow.x, yellow.y))
-    WIN.blit(RED_SPACESHIP, (red.x, yellow.y))
+    WIN.blit(RED_SPACESHIP, (red.x, red.y))
     pygame.display.update()
 
 
@@ -54,11 +54,11 @@ def main():
                     yellow_bullets.append(bullet)
 
                 if event.key == pygame.K_RCTRL and len(red_bullets) < MAX_BULLETS:
-                    bullet = pygame.Rect(red.x, red.y + red.height/2 - 2, 10, 5)
+                    bullet = pygame.Rect(red.x + red.width, red.y + red.height/2 - 2, 10, 5)
                     red_bullets.append(bullet)
 
     
-
+        
         #Yellow control
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_a] and yellow.x - VEL > 0: #Left
@@ -73,13 +73,13 @@ def main():
 
         #Red control
         keys_pressed = pygame.key.get_pressed()
-        if keys_pressed[pygame.K_LEFT]and yellow.x - VEL > 0: #Left
+        if keys_pressed[pygame.K_LEFT]and red.x - VEL > 0: #Left
             red.x -= VEL
-        if keys_pressed[pygame.K_RIGHT]and yellow.x + VEL + yellow.width < WIDTH: #Right
+        if keys_pressed[pygame.K_RIGHT]and red.x + VEL + yellow.width < WIDTH: #Right
             red.x += VEL
-        if keys_pressed[pygame.K_UP] and yellow.y - VEL > 0: #up
+        if keys_pressed[pygame.K_UP] and red.y - VEL > 0: #up
             red.y -= VEL
-        if keys_pressed[pygame.K_DOWN] and yellow.y + VEL + yellow.height < HEIGHT: #down
+        if keys_pressed[pygame.K_DOWN] and red.y + VEL + yellow.height < HEIGHT: #down
             red.y += VEL
 
         draw_window(red, yellow)
