@@ -12,6 +12,8 @@ BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
 
 FPS = 60
 VEL = 5
+BULLET_VEL = 6
+MAX_BULLETS = 3
 SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 55, 40
 
 YELLOW_SPACE_IMAGE = pygame.image.load('./python02/spaceship_yellow.png')
@@ -34,6 +36,10 @@ def main():
     red = pygame.Rect(700, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
     yellow = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 
+    #Bullets
+    red_bullets = []
+    yellow_bullets = []
+
     clock = pygame.time.Clock()
     run = True
     while run:
@@ -41,6 +47,17 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LCTRL and len(yellow_bullets) < MAX_BULLETS:
+                    bullet = pygame.Rect(yellow.x + yellow.width, yellow.y + yellow.height/2 - 2, 10, 5)
+                    yellow_bullets.append(bullet)
+
+                if event.key == pygame.K_RCTRL and len(red_bullets) < MAX_BULLETS:
+                    bullet = pygame.Rect(red.x, red.y + red.height/2 - 2, 10, 5)
+                    red_bullets.append(bullet)
+
+    
 
         #Yellow control
         keys_pressed = pygame.key.get_pressed()
@@ -56,13 +73,13 @@ def main():
 
         #Red control
         keys_pressed = pygame.key.get_pressed()
-        if keys_pressed[pygame.K_LEFT]: #Left
+        if keys_pressed[pygame.K_LEFT]and yellow.x - VEL > 0: #Left
             red.x -= VEL
-        if keys_pressed[pygame.K_RIGHT]: #Right
+        if keys_pressed[pygame.K_RIGHT]and yellow.x + VEL + yellow.width < WIDTH: #Right
             red.x += VEL
-        if keys_pressed[pygame.K_UP]: #up
+        if keys_pressed[pygame.K_UP] and yellow.y - VEL > 0: #up
             red.y -= VEL
-        if keys_pressed[pygame.K_DOWN]: #down
+        if keys_pressed[pygame.K_DOWN] and yellow.y + VEL + yellow.height < HEIGHT: #down
             red.y += VEL
 
         draw_window(red, yellow)
