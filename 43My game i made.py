@@ -1,7 +1,7 @@
 import pygame
 import os
-pygame.font.init()
-pygame.mixer.init()
+#pygame.font.init()
+#pygame.mixer.init()
 
 WIDTH, HEIGHT = 900, 500
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -13,9 +13,6 @@ RED = (255, 255, 0)
 YELLOW = (255, 0, 0)
 
 BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
-
-BULLET_HIT_SOUND = pygame.mixer.load('./python02/Assets_Grenade+1.mp3')
-BULLET_FIRE_SOUND = pygame.mixer.load('./python02/Assets_Gun+Silencer.mp3')
 
 HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
 WINNER_FONT = pygame.font.SysFont('comicsans', 100)
@@ -77,9 +74,10 @@ def handle_bullets(yellow_bullets, red_bullets, yellow, red):
                 red_bullets.remove(bullet)
 
 def draw_winner(text):
-    WINNER_FONT.render(text,1,WHITE)
-    WIN.blit(WINNER_FONT, (WIDTH//2))
-
+    draw_text = WINNER_FONT.render(text,1,WHITE)
+    WIN.blit(draw_text, (WIDTH/2 - draw_text.get_width()/2, HEIGHT/2 - draw_text.get_height()/2))
+    pygame.display.update()
+    pygame.time.delat(5000)
 
 
 def main():
