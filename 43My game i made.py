@@ -13,7 +13,7 @@ RED = (255, 255, 0)
 YELLOW = (255, 0, 0)
 
 BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
-
+pygame.init()
 HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
 WINNER_FONT = pygame.font.SysFont('comicsans', 100)
 
@@ -77,7 +77,7 @@ def draw_winner(text):
     draw_text = WINNER_FONT.render(text,1,WHITE)
     WIN.blit(draw_text, (WIDTH/2 - draw_text.get_width()/2, HEIGHT/2 - draw_text.get_height()/2))
     pygame.display.update()
-    pygame.time.delat(5000)
+    pygame.time.delay(5000)
 
 
 def main():
